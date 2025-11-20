@@ -3,16 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -21,9 +19,7 @@ const Footer = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-      },
+      transition: { duration: 0.6 },
     },
   };
 
@@ -36,168 +32,99 @@ const Footer = () => {
       variants={containerVariants}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 
-          
-          {/* Logo and Description */}
-          <motion.div
-            className="col-span-1 md:col-span-2"
-            variants={itemVariants}
-          >
+        {/* NUEVA ESTRUCTURA — 4 columnas balanceadas */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
 
-            
-            {/* Logo (modo claro/oscuro) */}
-            <Link href="/" className="inline-block -ml-4 mt-1">
-              {/* Logo modo claro */}
-              <img
-                src="/modo-claro.png"
-                alt="Logo RALQ Light"
-                className="h-32 w-32 object-contain dark:hidden"
-              />
-              {/* Logo modo oscuro */}
-              <img
-                src="/modo-oscuro-removebg-preview.png"
-                alt="Logo RALQ Dark"
-                className="h-28 w-28 object-contain hidden dark:block"
-              />
-            </Link>
+          {/* Logo y descripción */}
+          <motion.div variants={itemVariants}>
+            <h3 className="text-xl font-semibold text-foreground mb-3">RALQ</h3>
 
-            <p className="mt-2 text-muted-foreground text-sm leading-relaxed max-w-md">
-              Revolucionando la educación química con tecnología 3D y realidad
-              aumentada. Hacemos que el aprendizaje sea más interactivo, visual
-              y efectivo.
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Plataforma educativa que enseña química mediante modelos 3D 
+              y experiencias en Realidad Aumentada.
             </p>
 
-
-            
+            {/* Redes sociales */}
             <div className="flex space-x-4 mt-6">
               <motion.a
                 href="mailto:emirpolitog@gmail.com"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="text-muted-foreground hover:text-foreground"
               >
                 <Mail className="h-5 w-5" />
               </motion.a>
+
               <motion.a
                 href="https://github.com/EmirPolito?tab=repositories"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="text-muted-foreground hover:text-foreground"
               >
                 <Github className="h-5 w-5" />
               </motion.a>
+
               <motion.a
-                href="www.linkedin.com/in/emir-polito-g"
+                href="https://www.linkedin.com/in/emir-polito-g"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="text-muted-foreground hover:text-foreground"
               >
                 <Linkedin className="h-5 w-5" />
               </motion.a>
+
               <motion.a
                 href="https://twitter.com/arcomsedu"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="text-muted-foreground hover:text-foreground"
               >
                 <Twitter className="h-5 w-5" />
               </motion.a>
             </div>
           </motion.div>
 
+          {/* Empresa */}
+          <motion.div variants={itemVariants}>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Empresa</h3>
+            <ul className="space-y-3">
+              <li><Link href="/sobre-nosotros" className="text-sm text-muted-foreground hover:text-foreground">Sobre Nosotros</Link></li>
+              <li><Link href="/tecnologia" className="text-sm text-muted-foreground hover:text-foreground">Tecnología</Link></li>
+              <li><Link href="/educacion" className="text-sm text-muted-foreground hover:text-foreground">Educación</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground">Contacto</Link></li>
+            </ul>
+          </motion.div>
 
           {/* Fundadores */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-sm font-semibold text-foreground mb-4">
-              Fundadores
-            </h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Fundadores</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/productos"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Emir Polito Guevara
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/productos"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Irving Esteban Molina Méndez
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/productos"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Cristian Daniel Barraza Hernández
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/productos"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Plataforma Educativa
-                </Link>
-              </li>
+              <li><Link href="/productos" className="text-sm text-muted-foreground hover:text-foreground">Emir Polito Guevara</Link></li>
+              <li><Link href="/productos" className="text-sm text-muted-foreground hover:text-foreground">Irving Esteban Molina Méndez</Link></li>
+              <li><Link href="/productos" className="text-sm text-muted-foreground hover:text-foreground">Cristian Daniel Barraza Hernández</Link></li>
+              <li><Link href="/productos" className="text-sm text-muted-foreground hover:text-foreground">Plataforma Educativa</Link></li>
             </ul>
           </motion.div>
 
-          {/* Empresa */}
+          {/* Recursos */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-sm font-semibold text-foreground mb-4">
-              Empresa
-            </h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Recursos</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/sobre-nosotros"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Sobre Nosotros
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/tecnologia"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Tecnología
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/educacion"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Educación
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-                >
-                  Contacto
-                </Link>
-              </li>
+              <li><Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground">Blog</Link></li>
+              <li><Link href="/docs" className="text-sm text-muted-foreground hover:text-foreground">Documentación</Link></li>
             </ul>
           </motion.div>
+
         </div>
 
-        {/* Bottom Section */}
+        {/* Línea inferior */}
         <motion.div
           className="mt-12 pt-8 border-t border-border"
           variants={itemVariants}
@@ -206,28 +133,15 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               © 2024 RALQ. Todos los derechos reservados.
             </p>
+
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link
-                href="/privacidad"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                Privacidad
-              </Link>
-              <Link
-                href="/terminos"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                Términos
-              </Link>
-              <Link
-                href="/cookies"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                Cookies
-              </Link>
+              <Link href="/privacidad" className="text-sm text-muted-foreground hover:text-foreground">Privacidad</Link>
+              <Link href="/terminos" className="text-sm text-muted-foreground hover:text-foreground">Términos</Link>
+              <Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground">Cookies</Link>
             </div>
           </div>
         </motion.div>
+
       </div>
     </motion.footer>
   );
