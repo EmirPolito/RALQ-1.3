@@ -5,21 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { ModeToggle } from "@/components/ui/buttonDL";
+import { ModoSelect } from "./ui/modoSelect";
+import { useTheme } from "next-themes";
 
 export function AnimatedHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
 
   const hideMenuRoutes = [
     "/inicio-sesion",
-    "/contacto",
     "/ayuda",
-    "/nosotros",
     "/blog",
     "/registro",
+    "/menu"
   ];
 
   const shouldHideMenu = hideMenuRoutes.some((route) =>
@@ -27,12 +29,26 @@ export function AnimatedHeader() {
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setMounted(true); // evita hydration mismatch
+  }, []);
+
+  // -----------------------------
+  // Variables de color dinámicas
+  // -----------------------------
+  useEffect(() => {
+    const modeColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--mode-accent");
+    if (modeColor) {
+      document.documentElement.style.setProperty("--primary", modeColor);
+    }
+  }, [resolvedTheme]);
 
   const navItems = [
     { label: "Blog", href: "/blog" },
@@ -43,55 +59,60 @@ export function AnimatedHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 
-                  transition-colors transition-shadow transition-opacity 
-                  duration-500 ease-out
-                  ${
-                    isMobileMenuOpen
-                      ? "bg-background/95 backdrop-blur-xl border-b border-border"
-                      : isScrolled
-                      ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-sm"
-                      : "bg-transparent"
-                  }`}
-    >
-      {/* Para hacer el header más oscuro, descomenta la siguiente línea */}
-      {/* className="bg-background/90 backdrop-blur-xl border-b border-border shadow-sm" */}
+      // Con este no se esconde el header al llegar arriba
+      // className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
+      //   isMobileMenuOpen
+      //     ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
+      //     : isScrolled
+      //     ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+      //     : "bg-[var(--background)]/80 border-b border-[var(--border)]"
+      // }`}
 
+      // Con este se esconde el header al llegar arriba
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
+        isMobileMenuOpen
+          ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
+          : isScrolled
+          ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* LOGO */}
+          {/* Logo */}
           <Link
             href="/"
             className="relative block transition-all duration-200"
             style={{
-              animation:
-                "slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+              animation: "slideInLeft 0.8s cubic-bezier(0.34,1.56,0.64,1) both",
             }}
           >
-            <img
-              src="/modo-claro.png"
-              alt="Logo RALQ Light"
-              className="dark:hidden h-25 w-25 max-h-full max-w-full object-contain"
-            />
-            <img
-              src="/modo-oscuro-removebg-preview.png"
-              alt="Logo RALQ Dark"
-              className="hidden dark:block h-25 w-25 max-h-full max-w-full object-contain"
-            />
+            {mounted ? (
+              <img
+                src={
+                  resolvedTheme === "dark"
+                    ? "/modo-oscuro-removebg-preview.png"
+                    : "/modo-claro.png"
+                }
+                alt="Logo"
+                className="h-25 w-25 max-h-full max-w-full object-contain"
+              />
+            ) : (
+              <div className="h-25 w-25 bg-gray-200" /> // placeholder
+            )}
           </Link>
 
-          {/* MENÚ ESCRITORIO */}
           {!shouldHideMenu && (
             <>
+              {/* Menú escritorio */}
               <nav className="hidden md:flex items-center gap-1">
                 {navItems.map((item, index) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group overflow-hidden
-                      text-foreground/70 hover:text-foreground`}
+                    className="relative px-4 py-2 text-sm font-medium transition-all duration-300 group overflow-hidden text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
                     style={{
-                      animation: `fadeInDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${
+                      animation: `fadeInDown 0.6s cubic-bezier(0.34,1.56,0.64,1) ${
                         index * 0.1 + 0.2
                       }s both`,
                     }}
@@ -99,59 +120,75 @@ export function AnimatedHeader() {
                     <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
                       {item.label}
                     </span>
-
-                    {/* Hover: solo línea inferior */}
-                    <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-primary -translate-x-1/2 transition-all duration-300 group-hover:w-3/4"></span>
+                    <span
+                      className="absolute bottom-0 left-1/2 w-0 h-0.5 transition-all duration-300 group-hover:w-3/4"
+                      style={{
+                        backgroundColor: "var(--primary-2)", // <- línea dinámica
+                        transform: "translateX(-50%)",
+                      }}
+                    ></span>
                   </a>
                 ))}
               </nav>
 
-              {/* BOTONES DESKTOP */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-10">
                 <div
+                  className="flex flex-row items-center gap-5"
                   style={{
                     animation:
-                      "fadeInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both",
+                      "fadeInRight 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.45s both",
                   }}
                 >
-                  <ModeToggle />
+                  <ModoSelect />
                 </div>
 
                 <Link href="/inicio-sesion">
-                  <Button
-                    variant="ghost"
-                    className="relative text-sm font-medium overflow-hidden group"
-                    style={{
-                      animation:
-                        "fadeInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both",
-                    }}
-                  >
-                    <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
-                      Iniciar sesión
-                    </span>
-                  </Button>
+                  {mounted ? (
+                    <Button
+                      variant="ghost"
+                      className="relative text-sm font-medium overflow-hidden group"
+                      style={{
+                        animation:
+                          "fadeInRight 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.5s both",
+                      }}
+                    >
+                      <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
+                        Iniciar sesión
+                      </span>
+                    </Button>
+                  ) : (
+                    <div className="h-10 w-32 bg-gray-200 rounded" /> // placeholder
+                  )}
                 </Link>
 
                 <Link href="/registro">
-                  <Button
-                    className="relative text-sm font-medium overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300
-                      bg-[#637b6c] text-white hover:bg-[#516458]
-                      dark:bg-white dark:text-black dark:hover:bg-gray-200"
-                    style={{
-                      animation:
-                        "fadeInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both",
-                    }}
-                  >
-                    <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
-                      Registrarse
-                    </span>
-                  </Button>
+                  {mounted ? (
+                    <Button
+                      className={`relative text-sm font-medium overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 ${
+                        resolvedTheme === "light"
+                          ? "bg-[#637b6c] text-white hover:bg-[#556a5e]"
+                          : resolvedTheme === "dark"
+                          ? "bg-white text-black hover:bg-neutral-200"
+                          : "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
+                      }`}
+                      style={{
+                        animation:
+                          "fadeInRight 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.6s both",
+                      }}
+                    >
+                      <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
+                        Registrarse
+                      </span>
+                    </Button>
+                  ) : (
+                    <div className="h-10 w-32 bg-gray-200 rounded" /> // placeholder
+                  )}
                 </Link>
               </div>
             </>
           )}
 
-          {/* BOTÓN DE MENÚ MÓVIL */}
+          {/* Botón móvil */}
           {!shouldHideMenu && (
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -159,13 +196,13 @@ export function AnimatedHeader() {
               aria-label="Toggle menu"
               style={{
                 animation:
-                  "fadeInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both",
+                  "fadeInRight 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.4s both",
               }}
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6 animate-spin-in text-white" />
+                <X className="w-6 h-6 animate-spin-in text-[var(--foreground)]" />
               ) : (
-                <Menu className="w-6 h-6 animate-spin-in text-white" />
+                <Menu className="w-6 h-6 animate-spin-in text-[var(--foreground)]" />
               )}
             </button>
           )}
@@ -178,16 +215,18 @@ export function AnimatedHeader() {
               isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <nav className="py-4 space-y-2">
+            <nav className="py-4 space-y-1 px-2">
+              <ModoSelect />
+
               {navItems.map((item, index) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block px-4 py-3 text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-muted rounded-lg transition-all duration-300 hover:translate-x-2 hover:scale-105"
+                  className="block px-4 py-3 text-sm font-medium text-[var(--foreground)]/70 hover:text-[var(--foreground)] hover:bg-[var(--muted)] rounded-lg transition-all duration-300 hover:translate-x-2 hover:scale-105"
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{
                     animation: isMobileMenuOpen
-                      ? `slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ${
+                      ? `slideInLeft 0.4s cubic-bezier(0.34,1.56,0.64,1) ${
                           index * 0.1
                         }s both`
                       : "none",
@@ -197,37 +236,49 @@ export function AnimatedHeader() {
                 </a>
               ))}
 
-              <div className="pt-4 space-y-2 border-t border-border">
-                <Link href="/inicio-sesion">
+              <Link href="/inicio-sesion">
+                {mounted ? (
                   <Button
                     variant="ghost"
-                    className="relative text-sm font-medium text-foreground/70 overflow-hidden group bg-transparent border-none shadow-none"
+                    className="w-full text-sm font-medium text-[var(--foreground)]/70 overflow-hidden group bg-transparent border-none shadow-none mb-2.5"
                   >
                     <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
                       Iniciar sesión
                     </span>
-
-                    {/* Línea inferior al pasar el cursor */}
-                    <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-primary -translate-x-1/2 transition-all duration-300 group-hover:w-3/4"></span>
+                    <span
+                      className="absolute bottom-0 left-1/2 w-0 h-[2px] transition-all duration-300 group-hover:w-3/4"
+                      style={{
+                        backgroundColor: "var(--primary)",
+                        transform: "translateX(-50%)",
+                      }}
+                    ></span>
                   </Button>
-                </Link>
+                ) : (
+                  <div className="h-10 w-full bg-gray-200 rounded mb-2" />
+                )}
+              </Link>
 
-                <Link href="/registro">
+              <Link href="/registro">
+                {mounted ? (
                   <Button
-                    className="w-full text-sm font-medium transition-all duration-300 hover:scale-105
-                      bg-[#637b6c] text-white hover:bg-[#516458]
-                      dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                    className={`w-full text-sm font-medium transition-all duration-300 hover:scale-105
+                 ${
+                   resolvedTheme === "light"
+                     ? "bg-[#637b6c] text-white hover:bg-[#556a5e]"
+                     : resolvedTheme === "dark"
+                     ? "bg-white text-black hover:bg-white hover:text-black"
+                     : "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
+                 }`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    style={{
-                      animation: isMobileMenuOpen
-                        ? `slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both`
-                        : "none",
-                    }}
                   >
-                    Registrarse
+                    <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
+                      Registrarse
+                    </span>
                   </Button>
-                </Link>
-              </div>
+                ) : (
+                  <div className="h-10 w-full bg-gray-200 rounded" />
+                )}
+              </Link>
             </nav>
           </div>
         )}
@@ -245,7 +296,6 @@ export function AnimatedHeader() {
             transform: translateY(0);
           }
         }
-
         @keyframes fadeInRight {
           from {
             opacity: 0;
@@ -256,7 +306,6 @@ export function AnimatedHeader() {
             transform: translateX(0);
           }
         }
-
         @keyframes slideInLeft {
           from {
             opacity: 0;
@@ -267,7 +316,6 @@ export function AnimatedHeader() {
             transform: translateX(0);
           }
         }
-
         @keyframes spin-in {
           from {
             transform: rotate(-180deg) scale(0);
@@ -276,7 +324,6 @@ export function AnimatedHeader() {
             transform: rotate(0) scale(1);
           }
         }
-
         .animate-spin-in {
           animation: spin-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -284,3 +331,16 @@ export function AnimatedHeader() {
     </header>
   );
 }
+
+
+
+
+
+      // Con este no se esconde el header al llegar arriba
+      // className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
+      //   isMobileMenuOpen
+      //     ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
+      //     : isScrolled
+      //     ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+      //     : "bg-[var(--background)]/80 border-b border-[var(--border)]"
+      // }`}

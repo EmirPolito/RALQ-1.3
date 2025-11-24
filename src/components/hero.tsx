@@ -73,18 +73,16 @@ export const Hero = ({
         }}
       > */}
 
-        
-        {/* Sin animacion */}
-        <motion.div
+      {/* Sin animacion */}
+      <motion.div
         style={{
-        rotateX,
-        rotateZ,
-        translateY,
-        opacity,
-      }}
-      className="pointer-events-none"
-    >
-
+          rotateX,
+          rotateZ,
+          translateY,
+          opacity,
+        }}
+        className="pointer-events-none"
+      >
         {/* FILA 1 */}
         <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
           {firstRow.map((product) => (
@@ -135,18 +133,18 @@ export const Header = () => {
         desde cualquier dispositivo y aprende química de una mejor forma.
       </p>
 
-      {/* BOTÓN NEGRO / BLANCO */}
-      <div className="mt-10">
+      {/* BOTÓN DEMO */}
+      <div className="mt-8">
         <Link
           href="/demoo"
-          className="
-            inline-block px-6 py-3 
-            bg-black text-white 
-            hover:bg-neutral-800
-            dark:bg-white dark:text-black 
-            dark:hover:bg-neutral-200
-            rounded-xl shadow-lg transition-all
-          "
+          className={`
+            inline-block px-8 py-4 
+            bg-foreground text-background 
+            dark:bg-white dark:text-black
+            font-semibold rounded-xl
+            transition-all duration-300
+            hover:scale-105 hover:shadow-md active:scale-98
+          `}
         >
           Demo
         </Link>
@@ -154,7 +152,6 @@ export const Header = () => {
     </div>
   );
 };
-
 
 
 export const ProductCard = ({

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "next-themes"; // Usamos next-themes directamente
 import { AnimatedHeader } from "@/components/animated-header"; 
 
 const geistSans = Geist({
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "RALQ",
   description: "Plataforma RA",
 };
@@ -31,10 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
-          attribute="class"
+          attribute="data-theme" // importante: data-theme para que tus variables CSS se apliquen
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
           <AnimatedHeader />
           {children}

@@ -4,6 +4,7 @@ import { HeroParallaxDemo } from "@/components/heroParallaxDemo";
 import { StickyScrollRevealDemo } from "@/components/stickyScrollDemo";
 import { CardHoverEffectDemo } from "@/components/cardHoverEffectDemo";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { AnimatedPinDemo } from "@/components/animatedPinDemo";
 import Footer from "@/components/footer";
 
 function HomePage() {
@@ -27,6 +28,7 @@ function HomePage() {
 
   return (
     <div>
+      
       <HeroParallaxDemo />
 
       <div className="py-10">
@@ -37,7 +39,8 @@ function HomePage() {
         />
       </div>
 
-      <CardHoverEffectDemo />
+      {/* <CardHoverEffectDemo /> */}
+      <AnimatedPinDemo />
       <Footer />
     </div>
   );

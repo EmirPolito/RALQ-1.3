@@ -20,7 +20,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10 gap-6",
         className
       )}
     >
@@ -35,17 +35,11 @@ export const HoverEffect = ({
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
+                className="absolute inset-0 h-full w-full block rounded-3xl bg-[var(--accent)]/30 dark:bg-[var(--accent)]/20"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
+                animate={{ opacity: 1, transition: { duration: 0.15 } }}
+                exit={{ opacity: 0, transition: { duration: 0.15, delay: 0.2 } }}
               />
             )}
           </AnimatePresence>
@@ -62,7 +56,7 @@ export const HoverEffect = ({
 export const Card = ({ className, children }: { className?: string; children: React.ReactNode }) => (
   <div
     className={cn(
-      "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+      "rounded-2xl h-full w-full p-4 overflow-hidden bg-[var(--card)] border border-[var(--border)] group-hover:border-[var(--accent)] relative z-20",
       className
     )}
   >
@@ -73,9 +67,23 @@ export const Card = ({ className, children }: { className?: string; children: Re
 );
 
 export const CardTitle = ({ className, children }: { className?: string; children: React.ReactNode }) => (
-  <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>{children}</h4>
+  <h4
+    className={cn(
+      "font-bold tracking-wide mt-4 text-[var(--foreground)]",
+      className
+    )}
+  >
+    {children}
+  </h4>
 );
 
 export const CardDescription = ({ className, children }: { className?: string; children: React.ReactNode }) => (
-  <p className={cn("mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm", className)}>{children}</p>
+  <p
+    className={cn(
+      "mt-2 tracking-wide leading-relaxed text-sm text-[var(--secondary-foreground)]",
+      className
+    )}
+  >
+    {children}
+  </p>
 );

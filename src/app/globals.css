@@ -1,8 +1,6 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
+@import "tw-animate-css"; /* -------- VARIANTE DARK -------- */
+@custom-variant dark (&:is(.dark *)); /* -------- VARIABLES BASE LINKADAS A TAILWIND -------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -41,8 +39,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
+} /* -------- TEMA BASE (LIGHT) -------- */ /**/ /* Esto hace que los botones y demas tengan bordes,etc */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -51,13 +48,21 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+
+  /* color al blanco que aparece al pasar el curosr en el header linea */
+  --primary: #14a8d5;
+  --primary-2: #000000;
+
+  --primary-foreground: #ffffff; /* texto sobre primary */
+
+  /* Color del boton registrarse home al dejar el cursor */
+  --accent: #f0f0f0;
+
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
+
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.929 0.013 255.508);
@@ -65,59 +70,170 @@
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-3: #104e64;
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sidebar-primary: #0f172b;
+  --sidebar-primary-foreground: rgb(248, 250, 252);
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172b;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #90a1b9; /* VARIABLES PARA BORDES DINÁMICOS POR TEMA */
+  --border-theme: var(--primary);
+  --ring-theme: var(--accent);
+  --card-border-theme: var(--muted);
+} /* --------- TEMAS AVANZADOS (FONDO + BORDES) ---------- */ /**/ /**/ /* Esto hace que el modo Claro, Oscuro y Sistem Cambien en fondo a oscuro */
+
+.dark,
+[data-theme="dark"] {
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(14.479% 0.00002 271.152);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --border: oklch(0.28 0 0);
+  --input: oklch(0.28 0 0);
+  --ring: oklch(0.6 0 0);
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+
+  --primary: #ffffff; /* blanco */
+  --primary-2: #ffffff;
+
+  --primary-foreground: #000000;
+  --accent: #ffffff;
+}
+.light {
+  /* usa el root tal cual */
 }
 
-.dark {
-  /* Fondo 100% negro sin tonos azulados */
-  --background: oklch(0 0 0);
-  --foreground: oklch(0.984 0.003 247.858);
+[data-theme="orange"] {
+  --background: #ffffff;
+  --foreground: #ff5e00;
+  --primary: #e9711b;
+  --primary-2: #e9711b;
+  --primary-foreground: #ffffff;
+  --accent: #fb923c;
+  --accent-foreground: #ffffff;
+  --border-theme: #e9711b;
+  --ring-theme: #fb923c;
+  --card-border-theme: #fcd9b6;
+} /* Modo azul */
+[data-theme="blue"] {
+  --background: #ffffff;
+  --foreground: #2251d2;
+  --primary: #3b82f6;
+  --primary-2: #3b82f6;
+  --primary-foreground: #ffffff;
+  --accent: #60a5fa;
+  --accent-foreground: #ffffff;
+  --border-theme: #3b82f6;
+  --ring-theme: #60a5fa;
+  --card-border-theme: #c7dffe;
+} /* Modo rosa */
+[data-theme="pink"] {
+  /* Fondo blanco */
+  --background: #ffffff;
+  /* letras grandes de Hero */
+  --foreground: #ee2b79;
+  --primary: #ec4899;
+    --primary-2: #ec4899;
 
-  /* Tarjetas y popovers también negros */
-  --card: oklch(0 0 0);
-  --card-foreground: oklch(0.984 0.003 247.858);
-
-  --popover: oklch(0 0 0);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-
-  /* Todo lo demás lo dejo exactamente igual */
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --primary-foreground: #ffffff;
+  --accent: #f472b6;
+  --accent-foreground: #ffffff;
+  --border-theme: #ec4899;
+  --ring-theme: #f472b6;
+  --card-border-theme: #ffd0e4;
+} /* Modo amarillo */
+[data-theme="yellow"] {
+  --background: #fefce8;
+  --foreground: #e1c617;
+  --primary: #e1c617;
+  --primar-2: #e1c617;
+  
+  --primary-foreground: #ffffff;
+  --accent: #fde047;
+  --accent-foreground: #ffffff;
+  --border-theme: #eab308;
+  --ring-theme: #fde047;
+  --card-border-theme: #faecb2;
+} /* Modo violeta */
+[data-theme="violet"] {
+  --background: #ffffff;
+  --foreground: #6814e8;
+  --primary: #8b5cf6;
+  --primary-2: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --accent: #c4b5fd;
+  --accent-foreground: #000000;
+  --border-theme: #8b5cf6;
+  --ring-theme: #c4b5fd;
+  --card-border-theme: #e4d8ff;
 }
 
+/* Modo daltonico original*/
+/* [data-theme="daltonic"] {
+  --background: #ffffff;
+  --foreground: #333333;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --accent: #4a4a4a;
+  --accent-foreground: #ffffff;
+  --border-theme: #000000;
+  --ring-theme: #4a4a4a;
+  --card-border-theme: #dcdcdc;
+} */
+
+/* Modo daltonico*/
+[data-theme="daltonic"] {
+  /* Fondos */
+  --background: #f0f0f0; /* Gris muy claro */
+  --background-secondary: #e0e0e0; /* Gris claro para secciones secundarias */
+  --card-background: #ffffff; /* Fondo de tarjetas o paneles */
+
+  /* Texto */
+  --foreground: #222222; /* Texto principal */
+  --foreground-secondary: #555555; /* Texto secundario */
+  --link-color: #0072b2; /* Enlaces / primario destacable */
+
+  /* Colores primarios y secundarios */
+  --primary: #0072b2; /* Azul fuerte para botones y acciones */
+  --primary-2: #0072b2; /* Azul fuerte para botones y acciones */
+  --primary-foreground: #ffffff; /* Texto sobre botones primarios */
+  --secondary: #d55e00; /* Naranja/rojo visible para daltónicos */
+  --secondary-foreground: #ffffff; /* Texto sobre botones secundarios */
+
+  /* Acentos y resaltados */
+  --accent: #009e73; /* Verde azulado para elementos destacables */
+  --accent-foreground: #ffffff;
+  --highlight: #56b4e9; /* Azul claro para fondos destacados o info */
+
+  /* Estados / alertas */
+  --error: #cc79a7; /* Rosa/morado brillante para errores */
+  --warning: #e69f00; /* Naranja para advertencias */
+  --success: #007f5f; /* Verde oscuro para éxito */
+
+  /* Bordes y anillos */
+  --border-theme: #aaaaaa; /* Gris medio */
+  --ring-theme: #4a4a4a; /* Gris oscuro para outlines */
+  --card-border-theme: #cccccc; /* Bordes de tarjetas */
+
+  /* Otros elementos */
+  --button-hover: #005c91; /* Hover de botones primarios */
+  --button-active: #00497a; /* Estado activo de botones */
+  --shadow-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Sombra neutra para elementos flotantes */
+}
+
+/* -------- DARK & LIGHT (respeta system mode) -------- */ /*Si se quita esto hace que los modos de colores solo funcionen en los botones de registro y solo en eso*/
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -127,18 +243,29 @@
   }
 }
 
-/* Evita que el sitio se mueva al abrir menús o modales de Radix */
 body[data-radix-scroll-lock] {
   overflow: visible !important;
   padding-right: 0 !important;
-}
-
+} /* -------- ANIMACIONES PERSONALIZADAS -------- */
 @theme inline {
-  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
- 
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
     }
   }
 }
+
+/* Modo daltonico original*/
+/* [data-theme="daltonic"] {
+  --background: #ffffff;
+  --foreground: #333333;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --accent: #4a4a4a;
+  --accent-foreground: #ffffff;
+  --border-theme: #000000;
+  --ring-theme: #4a4a4a;
+  --card-border-theme: #dcdcdc;
+} */
