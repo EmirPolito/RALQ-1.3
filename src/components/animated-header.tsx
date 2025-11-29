@@ -19,12 +19,13 @@ export function AnimatedHeader() {
   const hideMenuRoutes = [
     "/inicio-sesion",
     "/registro",
-    "/menu"
+    "/menu",
   ];
 
   //  NUEVA FUNCIÓN AÑADIDA: rutas donde NO se esconderá el header al subir
   const fixedHeaderRoutes = [
-    "/contacto"
+    "/contacto"  
+    
   ];
 
   const shouldHideMenu = hideMenuRoutes.some((route) =>

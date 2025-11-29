@@ -227,23 +227,27 @@ export default function SignUpForm() {
             </div>
 
             {/* Submit */}
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full 
-                bg-foreground text-background
-                dark:bg-foreground dark:text-black
-                py-4 rounded-lg font-semibold 
-                transition-all duration-500 delay-150 mt-1 
-                hover:scale-105 hover:shadow-md active:scale-98
-                ${
-                  animate
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-2"
-                }`}
-            >
-              {isLoading ? "Registrando..." : "Registrarse"}
-            </Button>
+<Button
+  type="submit"
+  disabled={isLoading}
+  className={`
+    w-full py-4 font-semibold rounded-lg transition-all duration-300 
+    mt-2 border-2 border-[var(--primary-2)]
+    bg-[var(--primary-2)] text-[var(--primary-foreground)]
+    ${liftHover}
+    hover:bg-[var(--primary-2)]  
+    hover:text-[var(--primary-foreground)] 
+    hover:shadow-[0_0_12px_var(--mode-accent)]
+    hover:scale-105
+    active:scale-95
+
+    /* animación de entrada */
+    ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
+  `}
+>
+  {isLoading ? "Creando cuenta..." : "Registrarse"}
+</Button>
+
           </form>
 
           {/* Divider */}

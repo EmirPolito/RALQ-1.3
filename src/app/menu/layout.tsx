@@ -1,14 +1,12 @@
 "use client";
 
-
-import  { AnimatedHeaderMenu } from "@/components/headerMenu";
+import { AnimatedHeaderMenu } from "@/components/headerMenu";
 import "../globals.css";
 
-
-export default function HeaderMenu({ children }: { children?: React.ReactNode }) {
+export default function HeaderLayout({ children }: { children?: React.ReactNode }) {
   return (
     <>
-      <AnimatedHeaderMenu />
+      <AnimatedHeaderMenu /> {/* Solo un header */}
       {children}
     </>
   );

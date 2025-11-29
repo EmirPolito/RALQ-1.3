@@ -56,6 +56,8 @@
   --primary-4: #635f5f;
   --primary-5: #dad3d3;
   --primary-6: #556a5e;
+  --primary-7: #556a5e;
+  --primary-8: #556a5e;
 
   --primary-foreground: #ffffff; /* texto sobre primary */
 
@@ -98,7 +100,7 @@
   --card-foreground: oklch(0.97 0 0);
   --popover: oklch(0.18 0 0);
   --popover-foreground: oklch(0.97 0 0);
-  --border: oklch(0.28 0 0);
+  --border: #292929;
   --input: oklch(0.28 0 0);
   --ring: oklch(0.6 0 0);
   --muted: oklch(0.25 0 0);
@@ -110,6 +112,8 @@
   --primary-4: #ffffff;
   --primary-5: #3d3b3b;
   --primary-6: #000000;
+  --primary-7: #ffffff;
+  --primary-8: #131313;
 
   --primary-foreground: #000000;
   --accent: #ffffff;
@@ -121,6 +125,8 @@
 [data-theme="orange"] {
   --background: #ffffff;
   --primary-3: #ff5e00;
+  --primary-7: #ff5e00;
+  --primary-8: #ff5e00;
 
   --foreground: #ff5e00;
   --primary: #e9711b;
@@ -138,6 +144,8 @@
   --primary: #3b82f6;
   --primary-2: #3b82f6;
   --primary-3: #2251d2;
+  --primary-7: #2251d2;
+  --primary-8: #2251d2;
 
   --primary-foreground: #ffffff;
   --accent: #60a5fa;
@@ -155,6 +163,8 @@
 
   --primary: #ec4899;
   --primary-2: #ec4899;
+  --primary-7: #ec4899;
+  --primary-8: #ec4899;
 
   --primary-foreground: #ffffff;
   --accent: #f472b6;
@@ -168,6 +178,9 @@
   --foreground: #e1c617;
   --primary-3: #e1c617;
   --primary: #e1c617;
+  --primary-7: #e1c617;
+  --primary-8: #e1c617;
+
   --primar-2: #e1c617;
   --primary-foreground: #ffffff;
   --accent: #fde047;
@@ -180,6 +193,8 @@
   --background: #ffffff;
   --foreground: #6814e8;
   --primary-3: #6814e8;
+  --primary-7: #6814e8;
+  --primary-8: #6814e8;
 
   --primary: #8b5cf6;
   --primary-2: #8b5cf6;
@@ -210,6 +225,8 @@
   --background: #f0f0f0; /* Gris muy claro */
   --background-secondary: #e0e0e0; /* Gris claro para secciones secundarias */
   --card-background: #ffffff; /* Fondo de tarjetas o paneles */
+  --primary-7: #838284;
+  --primary-8: #838284;
 
   /* Texto */
   --foreground: #222222; /* Texto principal */

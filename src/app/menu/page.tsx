@@ -1,18 +1,13 @@
 "use client";
 
-import { AnimatedHeaderMenu }  from "@/components/headerMenu";
-
+import { LensDemo } from "@/components/contenido-menu1";
+import FooterMenu from "@/components/footerMenu";
 
 export default function MenuPage() {
   return (
     <div>
-      {/* Header */}
-      <AnimatedHeaderMenu />
-
-      {/* Contenido principal */}
-      <main className="pt-24 p-10 text-3xl">
-        Bienvenido al menú
-      </main>
+      <LensDemo />
+      <FooterMenu />
     </div>
   );
 }

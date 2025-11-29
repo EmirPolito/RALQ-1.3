@@ -70,7 +70,9 @@ export default function SignUpForm() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div
               className={`space-y-2 transition-all duration-500 delay-75 ${
-                animate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
+                animate
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-2"
               }`}
             >
               <Label htmlFor="email" className="text-sm font-semibold">
@@ -87,26 +89,32 @@ export default function SignUpForm() {
                 className="bg-background border-2 border-border text-foreground placeholder:text-muted-foreground px-3 py-2.5 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300 hover:border-muted hover:shadow-sm hover:scale-105 focus:scale-105"
               />
             </div>
+            
 
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className={`w-full 
-                bg-foreground text-background 
-                dark:bg-white dark:text-black
-                py-4 rounded-lg font-semibold 
-                transition-all duration-500 delay-150 mt-1
-                hover:scale-105 hover:shadow-md active:scale-98
-                ${
-                  animate
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-2"
-                }
-              `}
-            >
-              {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
-            </Button>
+<Button
+  type="submit"
+  disabled={isLoading}
+  className={`
+    w-full py-4 font-semibold rounded-lg transition-all duration-300 
+    mt-2 border-2 border-[var(--primary-2)]
+    bg-[var(--primary-2)] text-[var(--primary-foreground)]
+    ${liftHover}
+    hover:bg-[var(--primary-2)]  
+    hover:text-[var(--primary-foreground)] 
+    hover:shadow-[0_0_12px_var(--mode-accent)]
+    hover:scale-105
+    active:scale-95
+
+    /* animación de entrada */
+    ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
+  `}
+>
+  {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+</Button>
+
+
           </form>
+
 
           {/* Divider */}
           <div
@@ -168,7 +176,8 @@ export default function SignUpForm() {
               {mounted && (
                 <Image
                   src={
-                    resolvedTheme === "dark" || (resolvedTheme === "system" && theme === "dark")
+                    resolvedTheme === "dark" ||
+                    (resolvedTheme === "system" && theme === "dark")
                       ? "/icons/apple-logo-white.png"
                       : "/icons/apple-logo-black.png"
                   }
@@ -200,17 +209,17 @@ export default function SignUpForm() {
       </div>
 
       {/* Right Side */}
-           <div className="hidden lg:block lg:col-span-9 relative">
-             <div className="absolute inset-0 bg-gradient-to-br  dark:from-neutral-900/80 dark:to-black/80" />
-             <Image
-               src="/img/1.jpg"
-               alt="Laboratory"
-               fill
-               className="object-cover"
-               priority
-               unoptimized
-             />
-           </div>
+      <div className="hidden lg:block lg:col-span-9 relative">
+        <div className="absolute inset-0 bg-gradient-to-br  dark:from-neutral-900/80 dark:to-black/80" />
+        <Image
+          src="/img/1.jpg"
+          alt="Laboratory"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
+        />
+      </div>
     </div>
   );
 }

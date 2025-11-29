@@ -46,15 +46,14 @@ export default function ContactForm() {
         </p>
       </div>
 
-
       {/* CONTENIDO ↓ */}
       <div className="grid grid-cols-6 lg:grid-cols-2 gap-1 max-w-7xl mx-auto">
         {/* -------------------------------------------------------------- */}
         {/* 🔥 FORMULARIO SIN ANIMACIONES */}
         {/* -------------------------------------------------------------- */}
 
-<div
-  className="
+        <div
+          className="
     rounded-xl
     p-6
     w-full
@@ -63,10 +62,18 @@ export default function ContactForm() {
     border border-[var(--primary-5)]
     dark:border-gray-800
   "
->
+        >
+          {/* Título y subtítulo */}
+          <h1 className="text-3xl font-bold text-foreground mb-1">
+            Formulario de contacto
+          </h1>
 
+          <p className=" text-muted-foreground mb-9">
+            Pregúntanos lo que necesites, estamos listos para responderte
+          </p>
 
-          <form onSubmit={handleSubmit} className="mt-2 space-y-6">
+                                        {/* 7 tamaño del formulario */}
+          <form onSubmit={handleSubmit} className="mt-2 space-y-6"> 
             {/* Nombre */}
             <div className="space-y-3">
               <Label
@@ -84,13 +91,13 @@ export default function ContactForm() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 className="bg-background dark:bg-neutral-900 
-          border-2 border-border dark:border-neutral-700
-          text-foreground dark:text-white 
-          placeholder:text-gray-500 dark:placeholder:text-gray-300
-          px-3 py-2.5 rounded-lg 
-          focus:border-blue-500 transition-all duration-300 
-          hover:border-gray-500 dark:hover:border-neutral-600 
-          hover:shadow-sm hover:scale-105 focus:scale-105"
+        border-2 border-border dark:border-neutral-700
+        text-foreground dark:text-white 
+        placeholder:text-gray-500 dark:placeholder:text-gray-300
+        px-3 py-2.5 rounded-lg 
+        focus:border-blue-500 transition-all duration-300 
+        hover:border-gray-500 dark:hover:border-neutral-600 
+        hover:shadow-sm hover:scale-105 focus:scale-105"
               />
             </div>
 
@@ -111,13 +118,13 @@ export default function ContactForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="bg-background dark:bg-neutral-900 
-          border-2 border-border dark:border-neutral-700
-          text-foreground dark:text-white 
-          placeholder:text-gray-500 dark:placeholder:text-gray-300
-          px-3 py-2.5 rounded-lg 
-          focus:border-blue-500 transition-all duration-300 
-          hover:border-gray-400 dark:hover:border-neutral-600 
-          hover:shadow-sm hover:scale-105 focus:scale-105"
+        border-2 border-border dark:border-neutral-700
+        text-foreground dark:text-white 
+        placeholder:text-gray-500 dark:placeholder:text-gray-300
+        px-3 py-2.5 rounded-lg 
+        focus:border-blue-500 transition-all duration-300 
+        hover:border-gray-400 dark:hover:border-neutral-600 
+        hover:shadow-sm hover:scale-105 focus:scale-105"
               />
             </div>
 
@@ -137,75 +144,74 @@ export default function ContactForm() {
                 onChange={(e) => setMessage(e.target.value)}
                 required
                 className="
-            bg-background dark:bg-neutral-900 
-            border-2 border-border dark:border-neutral-700
-            text-foreground dark:text-white 
-            placeholder:text-gray-500 dark:placeholder:text-gray-300
+        bg-background dark:bg-neutral-900 
+        border-2 border-border dark:border-neutral-700
+        text-foreground dark:text-white 
+        placeholder:text-gray-500 dark:placeholder:text-gray-300
 
-            px-4 py-3 rounded-lg 
+        px-4 py-3 rounded-lg 
 
-            w-full
-            min-h-[180px]
-            text-left
-            text-start
-            resize-y
-            break-words
+        w-full
+        min-h-[180px]
+        text-left
+        text-start
+        resize-y
+        break-words
 
-            focus:border-blue-500 transition-all duration-300 
-            hover:border-gray-400 dark:hover:border-neutral-600 
-            hover:shadow-sm hover:scale-105 focus:scale-105
-          "
+        focus:border-blue-500 transition-all duration-300 
+        hover:border-gray-400 dark:hover:border-neutral-600 
+        hover:shadow-sm hover:scale-105 focus:scale-105
+      "
               />
             </div>
 
             {/* Botón */}
-<Button
-  type="submit"
-  disabled={isLoading}
-  className={`
-    w-full py-4 font-semibold rounded-lg transition-all duration-300 
-    mt-2 border-2 border-[var(--primary-2)]
-    bg-[var(--primary-2)] text-[var(--primary-foreground)]
-    ${liftHover}
-    hover:bg-[var(--primary-2)]  /* 🔹 Evita que cambie color */
-    hover:text-[var(--primary-foreground)] /* 🔹 Evita que cambie texto */
-    hover:shadow-[0_0_12px_var(--mode-accent)]
-  `}
->
-  {isLoading ? "Enviando..." : "Enviar mensaje"}
-</Button>
-
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className={`
+      w-full py-4 font-semibold rounded-lg transition-all duration-300 
+      mt-2 border-2 border-[var(--primary-2)]
+      bg-[var(--primary-2)] text-[var(--primary-foreground)]
+      ${liftHover}
+      hover:bg-[var(--primary-2)]  
+      hover:text-[var(--primary-foreground)] 
+      hover:shadow-[0_0_12px_var(--mode-accent)]
+    `}
+            >
+              {isLoading ? "Enviando..." : "Enviar mensaje"}
+            </Button>
           </form>
         </div>
 
         {/* -------------------------------------------------------------- */}
         {/* INFORMACIÓN DERECHA (sin animaciones) */}
         {/* -------------------------------------------------------------- */}
-        <div className="pl-20 md:pl-23 lg:pl-42">
+        <div className="pl-20 md:pl-23 lg:pl-40">
           <h3 className="text-2xl font-semibold text-[var(--foreground)] mb-10">
             Miembros del equipo
           </h3>
 
           <ul className="space-y-7.5 text-[var(--muted-foreground)]">
-            <li className="transition-all duration-200 hover:translate-x-2">
+            <li className="transition-all duration-200 hover:translate-x-1.5">
               <p className="text-base font-medium text-[var(--foreground)]">
                 Emir Polito Guevara
               </p>
-              <p className="text-sm opacity-80">emirpolitog@mail.com</p>
+              <p className="text-sm opacity-90">emirpolitog@mail.com</p>
             </li>
 
-            <li className="transition-all duration-200 hover:translate-x-2">
+            <li className="transition-all duration-200 hover:translate-x-1.5">
               <p className="text-base font-medium text-[var(--foreground)]">
                 Irving Esteban Molina Méndez
               </p>
-              <p className="text-sm opacity-80">cristiandaniel@mail.com</p>
+              <p className="text-sm opacity-90">cristiandaniel@mail.com</p>
             </li>
 
-            <li className="transition-all duration-200 hover:translate-x-2">
+            <li className="transition-all duration-200 hover:translate-x-1.5">
               <p className="text-base font-medium text-[var(--foreground)]">
                 Cristian Daniel Barraza Hernández
               </p>
-              <p className="text-sm opacity-80">irvingesteban@mail.com</p>
+              <p className="text-sm opacity-90">irvingesteban@mail.com</p>
             </li>
           </ul>
 
