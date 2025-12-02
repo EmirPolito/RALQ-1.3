@@ -44,7 +44,7 @@ export function LensDemo() {
       title: "Tabla Periodica",
       desc: "Visualización precisa en 3D.",
       img: "/img/menu/3-tablaperiodica.png",
-      link: "/PeriodicTable",
+      link: "/",
     },
   ];
 
