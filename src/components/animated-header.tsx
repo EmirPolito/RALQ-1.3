@@ -14,25 +14,19 @@ export function AnimatedHeader() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // *** FIX HYDRATION ***
+  const [ready, setReady] = useState(false);
+
   const pathname = usePathname();
 
-  const hideMenuRoutes = [
-    "/inicio-sesion",
-    "/registro",
-    "/menu",
-  ];
+  const hideMenuRoutes = ["/inicio-sesion", "/registro", "/menu"];
 
-  //  NUEVA FUNCIÓN AÑADIDA: rutas donde NO se esconderá el header al subir
-  const fixedHeaderRoutes = [
-    "/contacto"  
-    
-  ];
+  const fixedHeaderRoutes: string[] = [];
 
   const shouldHideMenu = hideMenuRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
-  // ¿La ruta actual debe mantener el header fijo? 
   const forceFixedHeader = fixedHeaderRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -44,7 +38,11 @@ export function AnimatedHeader() {
   }, []);
 
   useEffect(() => {
-    setMounted(true); // evita hydration mismatch
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setReady(true); // *** FIX HYDRATION ***
   }, []);
 
   useEffect(() => {
@@ -65,25 +63,19 @@ export function AnimatedHeader() {
 
   return (
     <header
-      // Con este no se esconde el header al llegar arriba
-      // className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
-      //   isMobileMenuOpen
-      //     ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
-      //     : isScrolled
-      //     ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
-      //     : "bg-[var(--background)]/80 border-b border-[var(--border)]"
-      // }`}
-
-      // Con este se hace transparente arriba (pero ahora queda fijo si está en fixedHeaderRoutes)
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
-        forceFixedHeader
-          ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
-          : isMobileMenuOpen
-          ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
-          : isScrolled
-          ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out 
+        ${
+          !ready
+            ? "bg-transparent"
+            : forceFixedHeader
+            ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+            : isMobileMenuOpen
+            ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
+            : isScrolled
+            ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
+            : "bg-transparent"
+        }
+      `}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -112,7 +104,7 @@ export function AnimatedHeader() {
 
           {!shouldHideMenu && (
             <>
-              {/* Menú escritorio */}
+              {/* Menú desktop */}
               <nav className="hidden md:flex items-center gap-1">
                 {navItems.map((item, index) => (
                   <a
@@ -172,7 +164,7 @@ export function AnimatedHeader() {
                 <Link href="/registro">
                   {mounted ? (
                     <Button
-                      className={`relative text-sm font-medium overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 ${
+                      className={`relative text-sm font-medium overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-400 ${
                         resolvedTheme === "light"
                           ? "bg-[#637b6c] text-white hover:bg-[#556a5e]"
                           : resolvedTheme === "dark"
@@ -270,13 +262,13 @@ export function AnimatedHeader() {
                 {mounted ? (
                   <Button
                     className={`w-full text-sm font-medium transition-all duration-300 hover:scale-105
-                 ${
-                   resolvedTheme === "light"
-                     ? "bg-[#637b6c] text-white hover:bg-[#556a5e]"
-                     : resolvedTheme === "dark"
-                     ? "bg-white text-black hover:bg-white hover:text-black"
-                     : "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
-                 }`}
+                        ${
+                          resolvedTheme === "light"
+                            ? "bg-[#637b6c] text-white hover:bg-[#556a5e]"
+                            : resolvedTheme === "dark"
+                            ? "bg-white text-black hover:bg-white hover:text-black"
+                            : "bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--accent)]"
+                        }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <span className="relative z-10 transition-transform duration-300 group-hover:scale-105">
@@ -339,15 +331,3 @@ export function AnimatedHeader() {
     </header>
   );
 }
-
-// -----------------------------
-// Tus comentarios originales abajo NO se tocan
-// -----------------------------
-// Con este no se esconde el header al llegar arriba
-// className={`fixed top-0 left-0 right-0 z-50 transition-colors transition-shadow transition-opacity duration-500 ease-out ${
-//   isMobileMenuOpen
-//     ? "bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)]"
-//     : isScrolled
-//     ? "bg-[var(--background)]/80 backdrop-blur-xl border-b border-[var(--border)] shadow-sm"
-//     : "bg-[var(--background)]/80 border-b border-[var(--border)]"
-// }`}

@@ -79,7 +79,7 @@ const FooterMenu = () => {
             <div className="mt-5 flex gap-4">
               <a
                 className="text-[var(--primary-4)] hover:text-[var(--primary-2)] transition"
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61563746413453"
               >
                 <svg
                   className="w-5.5 h-5.5"
@@ -91,7 +91,7 @@ const FooterMenu = () => {
               </a>
               <a
                 className="text-[var(--primary-4)] hover:text-[var(--primary-2)] transition"
-                href="#"
+                href="https://www.instagram.com/ralq.utsv?igsh=Z256dmRoOXY3ZDg2"
               >
                 <svg
                   className="w-5.5 h-5.5"
@@ -104,7 +104,7 @@ const FooterMenu = () => {
 
               <a
                 className="text-[var(--primary-4)] hover:text-[var(--primary-2)] transition"
-                href="#"
+                href="https://chat.whatsapp.com/HGGxXfwclFBEQBHr2clRLm"
               >
                 <svg
                   className="w-6 h-6"

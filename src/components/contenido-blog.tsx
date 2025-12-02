@@ -5,61 +5,39 @@ import Link from "next/link";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 export default function ThreeDCardDemo() {
-  const cards = [
-    {
-      title: "Visores 3D para Química",
-      desc: "RALQ permite visualizar moléculas e instrumentos en 3D con alta precisión.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "visores-3d-quimica",
-    },
-    {
-      title: "Realidad Aumentada",
-      desc: "Proyecta modelos del laboratorio químico directamente en tu entorno real.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "realidad-aumentada",
-    },
-    {
-      title: "Compatible con Móviles",
-      desc: "Escanea un QR y abre la experiencia AR sin instalar aplicaciones.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "compatible-con-moviles",
-    },
-    {
-      title: "Modelos Realistas",
-      desc: "Las moléculas e instrumentos son creados y mejorados en Blender 4.0.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "modelos-realistas",
-    },
-    {
-      title: "Instrumentos de laboratorio",
-      desc: "RALQ mejora la comprensión gracias a modelos 3D manipulables.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "instrumentos-laboratorio",
-    },
-    {
-      title: "Aprendizaje Interactivo",
-      desc: "RALQ mejora la comprensión gracias a modelos 3D manipulables.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "aprendizaje-interactivo",
-    },
-    {
-      title: "Visor Propio",
-      desc: "Estamos desarrollando un visor 3D propio para no depender de plataformas externas.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "visor-propio",
-    },
-    {
-      title: "Rendimiento Optimizado",
-      desc: "RALQ se adapta a cualquier dispositivo sin perder calidad.",
-      img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2400&auto=format&fit=crop",
-      slug: "rendimiento-optimizado",
-    },
-  ];
+const cards = [
+  {
+    title: "Realidad Aumentada",
+    desc: "Cómo la RA transforma la visualización de moléculas y experimentos en 3D.",
+    img: "img/4-img.jpg",
+    slug: "visores-3d-quimica",
+  },
+  {
+    title: "Instrumentos del laboratorio",
+    desc: "Descubre modelos 3D de microscopios, matraces y otros equipos de laboratorio.",
+    img: "img/5-img.jpg",
+    slug: "instrumentos-laboratorio",
+  },
+  {
+    title: "Estructuras moleculares",
+    desc: "Explora cómo representamos moléculas en 3D para un aprendizaje visual y profundo.",
+    img: "img/7-img.jpg",
+    slug: "estructuras-moleculares",
+  },
+  {
+    title: "Desde cualquier dispositivo",
+    desc: "Accede a nuestras experiencias de RA desde tu móvil, tablet o computadora sin instalar apps.",
+    img: "img/8-img.jpg",
+    slug: "compatible-con-moviles",
+  },
+];
+
+
 
   return (
     <section className="w-full py-22">
       {/* Header */}
-      <div className="text-center mb-25 mt-10">
+      <div className="text-center mb-30 mt-10">
         <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-3">
           Blog
         </h1>
@@ -71,7 +49,7 @@ export default function ThreeDCardDemo() {
       </div>
 
       {/* Grid */}
-      <div className="max-w-7xl mx-auto px-15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto px-19 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-37">
         {cards.map((card, i) => (
           <CardContainer key={i} className="w-full">
             <CardBody
@@ -79,9 +57,9 @@ export default function ThreeDCardDemo() {
                 bg-background 
                 border border-border 
                 dark:border-white/20 
-                rounded-2xl p-6 sm:p-8 lg:p-9 relative group/card 
+                rounded-2xl p-6 sm:p-8 lg:p-10 relative group/card 
                 shadow-sm dark:shadow-none
-                flex flex-col h-auto sm:h-[450px] lg:h-[498px]
+                flex flex-col h-auto sm:h-[430px] lg:h-[520px]
               "
             >
               {/* Título */}

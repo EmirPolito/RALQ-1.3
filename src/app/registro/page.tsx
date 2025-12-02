@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 
 export default function SignUpForm() {
-  const { theme, resolvedTheme } = useTheme(); // <-- resolvedTheme agregado
+  const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -25,13 +25,14 @@ export default function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
 
+  // ERRORES SIN MOVER NADA (posición absoluta)
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmError, setConfirmError] = useState("");
+
   useEffect(() => {
     setAnimate(true);
   }, []);
 
-  // ----------------------------
-  // SISTEMA DE MODO COLOR
-  // ----------------------------
   const modeColor =
     typeof window !== "undefined"
       ? getComputedStyle(document.documentElement).getPropertyValue(
@@ -39,9 +40,6 @@ export default function SignUpForm() {
         )
       : undefined;
 
-  // --------------------------------------------
-  // ESTILO SOCIAL NORMAL (igual que login)
-  // --------------------------------------------
   const baseSocial = `
     border-2 border-border dark:border-neutral-700
     bg-background dark:bg-neutral-900
@@ -51,9 +49,6 @@ export default function SignUpForm() {
     transition-all duration-300 group
   `;
 
-  // --------------------------------------------
-  // ALZA — animación de levantarse (igual login)
-  // --------------------------------------------
   const liftHover = `
     hover:-translate-y-1
     hover:scale-105
@@ -62,9 +57,6 @@ export default function SignUpForm() {
     hover:bg-background dark:hover:bg-neutral-900
   `;
 
-  // --------------------------------------------
-  // MODO COLOR — solo borde + glow
-  // --------------------------------------------
   const colorHover = modeColor
     ? `
       border-[2px] border-[${modeColor}]
@@ -72,8 +64,37 @@ export default function SignUpForm() {
     `
     : "";
 
+  // VALIDACIÓN COMPLETA
+  const validatePassword = (pass: string) => {
+    if (!/[A-Z]/.test(pass)) {
+      return "Debe incluir al menos 1 letra mayúscula.";
+    }
+
+    if (pass.length < 5) {
+      return "Debe tener mínimo 5 caracteres.";
+    }
+
+    if (!/[#_\-\/\*]/.test(pass)) {
+      return "Debe incluir un carácter especial (# _ - / *).";
+    }
+    
+    return "";
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const passError = validatePassword(password);
+    setPasswordError(passError);
+
+    if (passError !== "") return;
+
+    if (password !== confirmPassword) {
+      setConfirmError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    setConfirmError("");
     setIsLoading(true);
 
     setTimeout(() => {
@@ -89,23 +110,23 @@ export default function SignUpForm() {
         <div className="w-full max-w-lg">
           {/* Header */}
           <div
-            className={`mb-12 text-center transition-all duration-500 ${
+            className={`mb-9 text-center transition-all duration-500 ${
               animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
             }`}
           >
             <h1 className="text-3xl font-bold mb-2 hover:scale-105 transition-transform duration-300 cursor-default">
               Registrarse
             </h1>
-            <p className="text-base opacity-80 transition-opacity">
+            <p className="text-sm opacity-85 transition-opacity">
               Bienvenido/a a RALQ. Por favor, introduzca sus datos.
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-9">
             {/* Email */}
             <div
-              className={`space-y-2 transition-all duration-500 delay-75 ${
+              className={`space-y-1.5 transition-all duration-500 delay-75 ${
                 animate
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-2"
@@ -125,7 +146,7 @@ export default function SignUpForm() {
                 className="bg-background dark:bg-neutral-900 
                 border-2 border-border dark:border-neutral-700
                 text-foreground dark:text-white 
-                placeholder:text-gray-500 dark:placeholder:text-gray-300
+                placeholder:text-gray-400 dark:placeholder:text-gray-300
                 px-3 py-2.5 rounded-lg 
                 focus:border-blue-500 transition-all duration-300 
                 hover:border-gray-400 dark:hover:border-neutral-600 
@@ -135,11 +156,11 @@ export default function SignUpForm() {
 
             {/* Password */}
             <div
-              className={`space-y-2 transition-all duration-500 delay-100 ${
+              className={`space-y-1.5 transition-all duration-500 delay-100 ${
                 animate
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-2"
-              }`}
+              } relative`}
             >
               <Label htmlFor="password" className="text-sm font-semibold">
                 Contraseña
@@ -151,12 +172,15 @@ export default function SignUpForm() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Introduce tu contraseña"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setPasswordError(validatePassword(e.target.value));
+                  }}
                   required
                   className="bg-background dark:bg-neutral-900 
                   border-2 border-border dark:border-neutral-700
                   text-foreground dark:text-white 
-                  placeholder:text-gray-500 dark:placeholder:text-gray-300
+                  placeholder:text-gray-400 dark:placeholder:text-gray-300
                   w-full px-3 py-2.5 rounded-lg 
                   focus:border-blue-500 transition-all duration-300 
                   hover:border-gray-400 dark:hover:border-neutral-600 
@@ -176,15 +200,22 @@ export default function SignUpForm() {
                   )}
                 </button>
               </div>
+
+              {/* ERROR SIN MOVER NADA */}
+              {passwordError && (
+                <p className="absolute text-red-500 text-sm mt-1 left-0">
+                  {passwordError}
+                </p>
+              )}
             </div>
 
             {/* Confirm Password */}
             <div
-              className={`space-y-2 transition-all duration-500 delay-125 ${
+              className={`space-y-1.5 transition-all duration-500 delay-125 ${
                 animate
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-2"
-              }`}
+              } relative`}
             >
               <Label
                 htmlFor="confirmPassword"
@@ -199,12 +230,19 @@ export default function SignUpForm() {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirma tu contraseña"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    setConfirmError(
+                      e.target.value !== password
+                        ? "Las contraseñas no coinciden."
+                        : ""
+                    );
+                  }}
                   required
                   className="bg-background dark:bg-neutral-900 
                   border-2 border-border dark:border-neutral-700
                   text-foreground dark:text-white 
-                  placeholder:text-gray-500 dark:placeholder:text-gray-300
+                  placeholder:text-gray-400 dark:placeholder:text-gray-300
                   w-full px-3 py-2.5 rounded-lg 
                   focus:border-blue-500 transition-all duration-300 
                   hover:border-gray-400 dark:hover:border-neutral-600 
@@ -224,46 +262,51 @@ export default function SignUpForm() {
                   )}
                 </button>
               </div>
+
+              {/* ERROR SIN MOVER NADA */}
+              {confirmError && (
+                <p className="absolute text-red-500 text-sm mt-1 left-0">
+                  {confirmError}
+                </p>
+              )}
             </div>
 
-            {/* Submit */}
-<Button
-  type="submit"
-  disabled={isLoading}
-  className={`
-    w-full py-4 font-semibold rounded-lg transition-all duration-300 
-    mt-2 border-2 border-[var(--primary-2)]
-    bg-[var(--primary-2)] text-[var(--primary-foreground)]
-    ${liftHover}
-    hover:bg-[var(--primary-2)]  
-    hover:text-[var(--primary-foreground)] 
-    hover:shadow-[0_0_12px_var(--mode-accent)]
-    hover:scale-105
-    active:scale-95
+            {/* BOTÓN BAJADO 20px PARA EVITAR MOVIMIENTO */}
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className={`
+                w-full py-1 font-semibold rounded-lg transition-all duration-300 
+                mt-3 border-2 border-[var(--primary-2)]
+                bg-[var(--primary-2)] text-[var(--primary-foreground)]
+                ${liftHover}
+                hover:bg-[var(--primary-2)]  
+                hover:text-[var(--primary-foreground)] 
+                hover:shadow-[0_0_12px_var(--mode-accent)]
+                hover:scale-105
+                active:scale-95
 
-    /* animación de entrada */
-    ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
-  `}
->
-  {isLoading ? "Creando cuenta..." : "Registrarse"}
-</Button>
-
+                ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
+              `}
+            >
+              {isLoading ? "Creando cuenta..." : "Registrarse"}
+            </Button>
           </form>
 
           {/* Divider */}
           <div
-            className={`flex items-center gap-5 my-9 transition-all duration-500 delay-175 ${
+            className={`flex items-center gap-5 my-7 transition-all duration-500 delay-175 ${
               animate ? "opacity-100 scale-100" : "opacity-0 scale-98"
             }`}
           >
-            <div className="flex-1 h-px bg-gray-300 dark:bg-neutral-700" />
+            <div className="flex-1 h-px bg-gray-400 dark:bg-neutral-700" />
             <span className="text-sm opacity-80 font-medium whitespace-nowrap">
               O continúa con
             </span>
-            <div className="flex-1 h-px bg-gray-300 dark:bg-neutral-700" />
+            <div className="flex-1 h-px bg-gray-400 dark:bg-neutral-700" />
           </div>
 
-          {/* Social Buttons — IGUAL QUE LOGIN */}
+          {/* Social */}
           <div
             className={`grid grid-cols-3 gap-3 transition-all duration-500 delay-200 ${
               animate ? "opacity-100" : "opacity-0"
@@ -326,10 +369,10 @@ export default function SignUpForm() {
             </Button>
           </div>
 
-                   {/* Login link */}
+          {/* Login link */}
           <p
-            className={`text-center text-sm text-muted-foreground mt-15 transition-all duration-500 delay-225 hover:opacity-100 ${
-              animate ? "opacity-100" : "opacity-0"
+            className={`text-center text-sm text-muted-foreground mt-12 transition-all duration-500 delay-225 hover:opacity-100 ${
+              animate ? "opacity-130" : "opacity-0"
             }`}
           >
             ¿Todavía no tienes una cuenta?{" "}
@@ -345,9 +388,9 @@ export default function SignUpForm() {
 
       {/* Right Side */}
       <div className="hidden lg:block lg:col-span-9 relative">
-        <div className="absolute inset-0 bg-gradient-to-br  dark:from-neutral-900/80 dark:to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-br dark:from-neutral-900/80 dark:to-black/80" />
         <Image
-          src="/img/1.jpg"
+          src="/img/img-registro.jpg"
           alt="Laboratory"
           fill
           className="object-cover"

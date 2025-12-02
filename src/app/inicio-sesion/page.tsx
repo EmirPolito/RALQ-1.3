@@ -69,7 +69,7 @@ export default function SignUpForm() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div
-              className={`space-y-2 transition-all duration-500 delay-75 ${
+              className={`space-y-1.5 transition-all duration-500 delay-75 ${
                 animate
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-2"
@@ -82,20 +82,26 @@ export default function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="Introduce tu correo electrónico"
                 value={email}
+                placeholder="Introduce tu correo"
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-background border-2 border-border text-foreground placeholder:text-muted-foreground px-3 py-2.5 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300 hover:border-muted hover:shadow-sm hover:scale-105 focus:scale-105"
+                className="bg-background dark:bg-neutral-900 
+                border-2 border-border dark:border-neutral-700
+                text-foreground dark:text-white 
+                placeholder:text-gray-400 dark:placeholder:text-gray-300
+                px-3 py-2.5 rounded-lg 
+                focus:border-blue-500 transition-all duration-300 
+                hover:border-gray-400 dark:hover:border-neutral-600 
+                hover:shadow-sm hover:scale-105 focus:scale-105"
               />
             </div>
-            
 
-<Button
-  type="submit"
-  disabled={isLoading}
-  className={`
-    w-full py-4 font-semibold rounded-lg transition-all duration-300 
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className={`
+    w-full py-1 font-semibold rounded-lg transition-all duration-300 
     mt-2 border-2 border-[var(--primary-2)]
     bg-[var(--primary-2)] text-[var(--primary-foreground)]
     ${liftHover}
@@ -108,13 +114,10 @@ export default function SignUpForm() {
     /* animación de entrada */
     ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
   `}
->
-  {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
-</Button>
-
-
+            >
+              {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+            </Button>
           </form>
-
 
           {/* Divider */}
           <div
@@ -193,7 +196,7 @@ export default function SignUpForm() {
 
           {/* Login link */}
           <p
-            className={`text-center text-sm text-muted-foreground mt-20 transition-all duration-500 delay-225 hover:opacity-100 ${
+            className={`text-center text-sm text-muted-foreground mt-21 transition-all duration-500 delay-225 hover:opacity-100 ${
               animate ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -212,7 +215,7 @@ export default function SignUpForm() {
       <div className="hidden lg:block lg:col-span-9 relative">
         <div className="absolute inset-0 bg-gradient-to-br  dark:from-neutral-900/80 dark:to-black/80" />
         <Image
-          src="/img/1.jpg"
+          src="/img/img-iniciosesion.jpg"
           alt="Laboratory"
           fill
           className="object-cover"

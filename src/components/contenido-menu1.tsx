@@ -21,28 +21,30 @@ export function LensDemo() {
       link: "/tus-laboratorios",
     },
     {
-      title: "Tabla Periodica",
-      desc: "Visualización precisa en 3D.",
-      img: "/img/menu/3-tablaperiodica.png",
-      link: "/tabla-periodica",
-    },
-    {
-      title: "Explora tus Laboratorios",
-      desc: "Modelos avanzados.",
-      img: "/img/menu/4-exploratuslab.png",
-      link: "/",
-    },
-    {
       title: "Evaluate",
       desc: "El futuro de la computación.",
       img: "/img/menu/5-evaluate.png",
-      link: "/",
+      link: "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__TR___tUOTI4WkFURU0yR1RZQkdLTFU4OFpZWjgyTS4u",
     },
+
+    {
+      title: "Explora los en 3D Laboratorios",
+      desc: "Modelos avanzados.",
+      img: "/img/menu/4-exploratuslab.png",
+      link: "https://www.youtube.com/watch?v=cubEOJ_gz3w",
+    },
+
     {
       title: "Aprende Jugando",
       desc: "Experiencias inmersivas.",
       img: "/img/menu/6-aprendejugando.png",
-      link: "/",
+      link: "https://wordwall.net/es/resource/13254497/elementos-de-laboratorio",
+    },
+    {
+      title: "Tabla Periodica",
+      desc: "Visualización precisa en 3D.",
+      img: "/img/menu/3-tablaperiodica.png",
+      link: "/PeriodicTable",
     },
   ];
 
@@ -57,9 +59,9 @@ export function LensDemo() {
   };
 
   return (
-    <div className="my-40">
+    <div className="my-45">
       {/* ---------------- ENCABEZADO ---------------- */}
-      <div className="max-w-7xl mx-auto mb-20 text-center">
+      <div className="max-w-7xl mx-auto mb-30 text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +81,7 @@ export function LensDemo() {
       </div>
 
       {/* ---------------- GRID DE TARJETAS ---------------- */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-20 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-17 max-w-7xl mx-auto">
         {cards.map((card, i) => (
           <Link key={i} href={card.link}>
             <motion.div
@@ -94,7 +96,7 @@ export function LensDemo() {
                 "relative rounded-2xl overflow-hidden p-6 cursor-pointer group",
                 "bg-card border border-border shadow-sm text-foreground",
                 "dark:bg-gradient-to-r dark:from-[#1D2235] dark:to-[#121318]",
-                "h-[385px]"
+                "h-[400px]"
               )}
             >
               <Rays />

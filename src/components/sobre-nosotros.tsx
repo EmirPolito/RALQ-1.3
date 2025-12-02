@@ -20,12 +20,12 @@ export function TimelineDemo() {
 
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
+              src="img/9-img.jpg"
               alt="startup template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
             <img
-              src="https://assets.aceternity.com/templates/startup-2.webp"
+              src="img/10-img.jpg"
               alt="startup template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
@@ -47,12 +47,12 @@ export function TimelineDemo() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
+              src="img/12-img.png"
               alt="hero template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
             <img
-              src="https://assets.aceternity.com/features-section.png"
+              src="img/13-img.png"
               alt="feature template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
@@ -75,12 +75,12 @@ export function TimelineDemo() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
+              src="img/15-img.png"
               alt="hero template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
             <img
-              src="https://assets.aceternity.com/features-section.png"
+              src="img/14-img.png"
               alt="feature template"
               className="h-50 w-full rounded-lg object-cover border-[var(--border-theme)]"
             />
